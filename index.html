@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sticker ZIP — حوّل ملصقات تيليجرام إلى ZIP</title>
+  <meta name="description" content="الصق رابط حزمة ملصقات تيليجرام، عاين الملصقات، ونزّلها كلها في ملف ZIP واحد.">
+  <meta name="theme-color" content="#2a9df4">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%A6%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // تطبيق الوضع المحفوظ قبل الرسم لتجنب الوميض
+    try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="logo" aria-hidden="true">📦</span> Sticker&nbsp;ZIP</div>
+    <button id="themeBtn" class="icon-btn" type="button" aria-label="تبديل الوضع الداكن">🌓</button>
+  </header>
+
+  <main class="wrap">
+    <section class="card hero">
+      <h1>حوّل حزمة ملصقات تيليجرام إلى ملف ZIP</h1>
+      <p class="sub">الصق رابط الحزمة، عاين الملصقات، ثم نزّلها كلها دفعة واحدة.</p>
+
+      <label for="url" class="lbl">رابط الحزمة</label>
+      <div class="row">
+        <input id="url" type="url" inputmode="url" dir="ltr" autocomplete="off" autocapitalize="off" spellcheck="false"
+               placeholder="https://t.me/addstickers/PackName">
+        <button id="fetchBtn" class="btn primary" type="button">جلب الملصقات</button>
+      </div>
+      <div id="msg" class="msg" role="alert" hidden></div>
+    </section>
+
+    <section id="result" class="card" hidden>
+      <div class="pack-head">
+        <div>
+          <h2 id="packTitle"></h2>
+          <p id="packMeta" class="sub"></p>
+        </div>
+      </div>
+
+      <div class="opts">
+        <label class="opt">
+          <span>صيغة الملصقات الثابتة</span>
+          <select id="fmt">
+            <option value="webp">WebP (الأصلية)</option>
+            <option value="png">PNG (تحويل)</option>
+          </select>
+        </label>
+        <label class="opt check" id="extraOpt">
+          <input type="checkbox" id="extra" checked>
+          <span>تضمين المتحركة (.tgs) والفيديو (.webm) بصيغتها الأصلية</span>
+        </label>
+      </div>
+
+      <div id="grid" class="grid"></div>
+
+      <button id="zipBtn" class="btn primary big" type="button">تحويل إلى ZIP وتنزيل</button>
+
+      <div id="prog" class="prog" hidden>
+        <div class="bar"><div id="barFill" class="fill"></div></div>
+        <div id="progText" class="prog-text"></div>
+      </div>
+      <div id="done" class="msg ok" hidden></div>
+    </section>
+
+    <footer class="foot">غير مرتبط بتيليجرام. الملصقات ملك لأصحابها، استخدمها باحترام.</footer>
+  </main>
+
+  <script src="zip.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
